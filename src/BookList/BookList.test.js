@@ -1,7 +1,12 @@
 import React from "react";
 import { render } from "@testing-library/react";
+import { MemoryRouter as Router } from "react-router-dom";
 
 import BookList from "./BookList";
+
+const renderWithRouter = (component) => {
+  return { ...render(<Router>{component}</Router>) };
+};
 
 describe("BookList component", () => {
   it("shows loading state", () => {
@@ -25,7 +30,7 @@ describe("BookList component", () => {
         { name: "Domain-driven design", id: 2 },
       ],
     };
-    const { container } = render(<BookList {...props} />);
+    const { container } = renderWithRouter(<BookList {...props} />);
     const titles = [...container.querySelectorAll("h2")].map(
       (element) => element.innerHTML
     );
